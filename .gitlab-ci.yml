@@ -35,6 +35,6 @@ docker-registry-master:
   script:
     - version=v1.8.7
     - apk add git
-    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:${version} .
-    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:${version}
+    - docker build -t tzander/commento:${version} .
+    - docker push tzander/commento:${version}
 
