@@ -1,5 +1,4 @@
 stages:
-  - go-test
   - build-src
   - build-docker
   - docker-registry-master
@@ -23,25 +22,6 @@ build-docker:
     - docker:dind
   script:
     - docker build -t commento .
-
-go-test:
-  stage: go-test
-  image: golang:1.14
-  services:
-    - postgres:9.6
-  variables:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-    POSTGRES_DB: commento_test
-    COMMENTO_POSTGRES: postgres://postgres:postgres@postgres/commento_test?sslmode=disable
-  before_script:
-    - mkdir -p /go/src /go/bin /go/pkg
-    - export GOPATH=/go
-    - export PATH=$PATH:/go/bin
-    - ln -s $CI_PROJECT_DIR /go/src/$CI_PROJECT_NAME
-  script:
-    - cd /go/src/$CI_PROJECT_NAME
-    - make test
 
 docker-registry-master:
   stage: docker-registry-master
