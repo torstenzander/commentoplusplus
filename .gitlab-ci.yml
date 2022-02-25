@@ -1,5 +1,4 @@
 stages:
-  - go-fmt
   - go-test
   - build-src
   - build-docker
@@ -43,13 +42,6 @@ go-test:
   script:
     - cd /go/src/$CI_PROJECT_NAME
     - make test
-
-go-fmt:
-  stage: go-fmt
-  image: golang:1.14
-  script:
-    - cd api
-    - test -z "$(go fmt)"
 
 docker-registry-master:
   stage: docker-registry-master
