@@ -8,9 +8,6 @@ stages:
 build-src:
   stage: build-src
   image: debian:buster
-  except:
-    - master
-    - tags
   before_script:
     - bash $CI_PROJECT_DIR/scripts/gitlab-ci-build-prescript
   script:
@@ -25,9 +22,6 @@ build-docker:
   image: docker:stable
   services:
     - docker:dind
-  except:
-    - master
-    - tags
   script:
     - docker build -t commento .
 
@@ -41,9 +35,6 @@ go-test:
     POSTGRES_PASSWORD: postgres
     POSTGRES_DB: commento_test
     COMMENTO_POSTGRES: postgres://postgres:postgres@postgres/commento_test?sslmode=disable
-  except:
-    - master
-    - tags
   before_script:
     - mkdir -p /go/src /go/bin /go/pkg
     - export GOPATH=/go
@@ -56,9 +47,6 @@ go-test:
 go-fmt:
   stage: go-fmt
   image: golang:1.14
-  except:
-    - master
-    - tags
   script:
     - cd api
     - test -z "$(go fmt)"
@@ -69,7 +57,7 @@ docker-registry-master:
   services:
     - docker:dind
   only:
-    - main
+    - master
   before_script:
     - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_TOKEN} ${CI_REGISTRY}
   script:
