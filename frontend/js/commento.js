@@ -976,12 +976,12 @@
 
   function colorGet(name) {
     var colors = [
-      "#396ab1",
-      "#da7c30",
+      "#52ab98",
+      "#2b6777",
       "#3e9651",
-      "#cc2529",
-      "#922428",
-      "#6b4c9a",
+      "#e1e1e1",
+      "#f8e1df",
+      "#11292f",
       "#535154",
     ];
 
@@ -2032,6 +2032,7 @@
 
     post(origin + "/api/commenter/login", json, function(resp) {
       if (!resp.success) {
+        console.log("Login Error"+ resp.message);
         global.loginBoxClose();
         errorShow(resp.message);
         return
@@ -2040,7 +2041,6 @@
       }
 
       cookieSet("commentoCommenterToken", resp.commenterToken);
-
       selfLoad(resp.commenter, resp.email);
       allShow();
       removeGuestNameEntry();
