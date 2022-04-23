@@ -33,7 +33,7 @@ docker-registry-master:
   before_script:
     - docker login -u tzander -p $CI_JOB_TOKEN
   script:
-    - version=v1.8.9
+    - version=v1.8.10
     - apk add git
     - docker build -t tzander/commento:${version} .
     - docker push tzander/commento:${version}
