@@ -5,7 +5,7 @@ stages:
 
 build-src:
   stage: build-src
-  image: debian:buster
+  image: debian:bullseye
   before_script:
     - bash $CI_PROJECT_DIR/scripts/gitlab-ci-build-prescript
   script:
