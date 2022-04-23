@@ -44,10 +44,8 @@ jobs:
       with:
         context: .
         tags: |
-          caroga/commentoplusplus:latest
-          caroga/commentoplusplus:${{ steps.previoustag.outputs.tag }}
-          ghcr.io/souramoo/commentoplusplus:latest
-          ghcr.io/souramoo/commentoplusplus:${{ steps.previoustag.outputs.tag }}
+          tzander/commentoplusplus:latest
+          tzander/commentoplusplus:${{ steps.previoustag.outputs.tag }}
         # build on feature branches, push only on main branch
         push: ${{ github.ref == 'refs/heads/master' }}
         platforms: amd64,arm64
