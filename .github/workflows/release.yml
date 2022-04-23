@@ -1,63 +1,33 @@
-  Skip to content
-    Search or jump to…
-    Pull requests
-    Issues
-    Marketplace
-    Explore
-    
-    @torstenzander
-    souramoo
-    /
-    commentoplusplus
-    Public
-    Code
-    Issues
-    25
-    Pull requests
-    1
-    Discussions
-    Actions
-    Projects
-    Wiki
-    Security
-    Insights
-    Publish Release from master Publish Release from master #3
-    Summary
-    Workflow file
-    Jobs
-    Build production ready release
-    Workflow file for this run
-    .github/workflows/release.yml at db07b25
-  name: Publish Release from master
+name: Publish Release from master
 
-  on:
-    workflow_dispatch:
+on:
+  workflow_dispatch:
 
-  jobs:
-    build-frontend:
-      name: Build production ready release
-      runs-on: ubuntu-latest
+jobs:
+  build-frontend:
+    name: Build production ready release
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Check out code
-          uses: actions/checkout@v2
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
 
-        - name: Setup Node
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ env.NODE_VERSION }}
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-        - name: Build prod
-          run: make prod
+      - name: Build prod
+        run: make prod
 
-        - name: Make archive
-          run: cd build/prod && tar zcvf ../release.tar.gz ./
+      - name: Make archive
+        run: cd build/prod && tar zcvf ../release.tar.gz ./
 
-        - name: Publish as release
-          uses: "marvinpinto/action-automatic-releases@latest"
-          with:
-            repo_token: "${{ secrets.GITHUB_TOKEN }}"
-            prerelease: false
-            automatic_release_tag: "latest"
-            files: |
-              build/release.tar.gz
+      - name: Publish as release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          files: |
+            build/release.tar.gz
